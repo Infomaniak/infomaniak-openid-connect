@@ -29,7 +29,7 @@ Avant de configurer le plugin, vous devez créer une application OAuth2 dans vot
 2. Accédez à la section de gestion des API et applications
 3. Créez une nouvelle application OAuth2
 4. Notez l'ID client et le secret client qui vous seront fournis
-5. Configurez l'URL de redirection vers : `https://votre-site.com/wp-admin/admin-ajax.php?action=openid-connect-authorize`
+5. Configurez l'URL de redirection vers : `https://votre-site.com/openid-connect-authorize`
 
 ### Paramètres du plugin
 
