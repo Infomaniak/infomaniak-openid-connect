@@ -368,7 +368,7 @@ class OpenID_Connect_Infomaniak {
 				'login_type'           => defined( 'INFOMANIAK_OIDC_LOGIN_TYPE' ) ? INFOMANIAK_OIDC_LOGIN_TYPE : 'button',
 				'client_id'            => defined( 'INFOMANIAK_OIDC_CLIENT_ID' ) ? INFOMANIAK_OIDC_CLIENT_ID : '',
 				'client_secret'        => defined( 'INFOMANIAK_OIDC_CLIENT_SECRET' ) ? INFOMANIAK_OIDC_CLIENT_SECRET : '',
-				'scope'                => defined( 'INFOMANIAK_OIDC_CLIENT_SCOPE' ) ? INFOMANIAK_OIDC_CLIENT_SCOPE : '',
+				'scope'                => defined( 'INFOMANIAK_OIDC_CLIENT_SCOPE' ) ? INFOMANIAK_OIDC_CLIENT_SCOPE : 'email profile openid',
 				'endpoint_login'       => defined( 'INFOMANIAK_OIDC_ENDPOINT_LOGIN_URL' ) ? INFOMANIAK_OIDC_ENDPOINT_LOGIN_URL : '',
 				'endpoint_userinfo'    => defined( 'INFOMANIAK_OIDC_ENDPOINT_USERINFO_URL' ) ? INFOMANIAK_OIDC_ENDPOINT_USERINFO_URL : '',
 				'endpoint_token'       => defined( 'INFOMANIAK_OIDC_ENDPOINT_TOKEN_URL' ) ? INFOMANIAK_OIDC_ENDPOINT_TOKEN_URL : '',
@@ -378,8 +378,8 @@ class OpenID_Connect_Infomaniak {
 				// Non-standard settings.
 				'no_sslverify'           => 0,
 				'http_request_timeout'   => 5,
-				'identity_key'           => 'preferred_username',
-				'nickname_key'           => 'preferred_username',
+				'identity_key'           => 'sub',
+				'nickname_key'           => 'name',
 				'email_format'           => '{email}',
 				'displayname_format'     => '',
 				'identify_with_username' => false,
@@ -387,7 +387,7 @@ class OpenID_Connect_Infomaniak {
 
 				// Plugin settings.
 				'enforce_privacy'          => defined( 'OIDC_ENFORCE_PRIVACY' ) ? intval( OIDC_ENFORCE_PRIVACY ) : 0,
-				'alternate_redirect_uri'   => 0,
+				'alternate_redirect_uri'   => 1,
 				'token_refresh_enable'     => 1,
 				'link_existing_users'      => defined( 'OIDC_LINK_EXISTING_USERS' ) ? intval( OIDC_LINK_EXISTING_USERS ) : 0,
 				'create_if_does_not_exist' => defined( 'OIDC_CREATE_IF_DOES_NOT_EXIST' ) ? intval( OIDC_CREATE_IF_DOES_NOT_EXIST ) : 1,

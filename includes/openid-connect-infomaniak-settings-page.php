@@ -237,7 +237,7 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 			'scope'             => array(
 				'title'       => __( 'OpenID Scope', 'infomaniak-openid-connect-infomaniak' ),
 				'description' => __( 'Space separated list of scopes this client should access.', 'infomaniak-openid-connect-infomaniak' ),
-				'example'     => 'email profile openid offline_access',
+				'example'     => 'email profile openid',
 				'type'        => 'text',
 				'disabled'    => defined( 'INFOMANIAK_OIDC_CLIENT_SCOPE' ),
 				'section'     => 'client_settings',
@@ -289,7 +289,7 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 			'identity_key'     => array(
 				'title'       => __( 'Identity Key', 'infomaniak-openid-connect-infomaniak' ),
 				'description' => __( 'Where in the user claim array to find the user\'s identification data. Possible standard values: preferred_username, name, or sub. If you\'re having trouble, use "sub".', 'infomaniak-openid-connect-infomaniak' ),
-				'example'     => 'preferred_username',
+				'example'     => 'sub',
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
@@ -323,7 +323,7 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 			'nickname_key'     => array(
 				'title'       => __( 'Nickname Key', 'infomaniak-openid-connect-infomaniak' ),
 				'description' => __( 'Where in the user claim array to find the user\'s nickname. Possible standard values: preferred_username, name, or sub.', 'infomaniak-openid-connect-infomaniak' ),
-				'example'     => 'preferred_username',
+				'example'     => 'name',
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
