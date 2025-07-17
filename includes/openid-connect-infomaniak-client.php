@@ -173,11 +173,11 @@ class OpenID_Connect_Infomaniak_Client {
 		// Check the client request state.
 		if ( ! isset( $request['state'] ) ) {
 			do_action( 'openid-connect-infomaniak-no-state-provided' );
-			return new WP_Error( 'missing-state', __( 'Missing state.', 'infomaniak-openid-connect-infomaniak' ), $request );
+			return new WP_Error( 'missing-state', __( 'Missing state.', 'infomaniak-openid-connect' ), $request );
 		}
 
 		if ( ! $this->check_state( $request['state'] ) ) {
-			return new WP_Error( 'invalid-state', __( 'Invalid state.', 'infomaniak-openid-connect-infomaniak' ), $request );
+			return new WP_Error( 'invalid-state', __( 'Invalid state.', 'infomaniak-openid-connect' ), $request );
 		}
 
 		return $request;
@@ -192,7 +192,7 @@ class OpenID_Connect_Infomaniak_Client {
 	 */
 	public function get_authentication_code( $request ) {
 		if ( ! isset( $request['code'] ) ) {
-			return new WP_Error( 'missing-authentication-code', __( 'Missing authentication code.', 'infomaniak-openid-connect-infomaniak' ), $request );
+			return new WP_Error( 'missing-authentication-code', __( 'Missing authentication code.', 'infomaniak-openid-connect' ), $request );
 		}
 
 		return $request['code'];
@@ -208,7 +208,7 @@ class OpenID_Connect_Infomaniak_Client {
 	public function request_authentication_token( $code ) {
 
 		// Add Host header - required for when the openid-connect endpoint is behind a reverse-proxy.
-		$parsed_url = parse_url( $this->endpoint_token );
+		$parsed_url = wp_parse_url( $this->endpoint_token );
 		$host = $parsed_url['host'];
 
 		$request = array(
@@ -237,7 +237,7 @@ class OpenID_Connect_Infomaniak_Client {
 		$this->logger->log( $this->endpoint_token, 'request_authentication_token', $end_time - $start_time );
 
 		if ( is_wp_error( $response ) ) {
-			$response->add( 'request_authentication_token', __( 'Request for authentication token failed.', 'infomaniak-openid-connect-infomaniak' ) );
+			$response->add( 'request_authentication_token', __( 'Request for authentication token failed.', 'infomaniak-openid-connect' ) );
 		}
 
 		return $response;
@@ -270,7 +270,7 @@ class OpenID_Connect_Infomaniak_Client {
 		$this->logger->log( $this->endpoint_token, 'request_new_tokens', $end_time - $start_time );
 
 		if ( is_wp_error( $response ) ) {
-			$response->add( 'refresh_token', __( 'Refresh token failed.', 'infomaniak-openid-connect-infomaniak' ) );
+			$response->add( 'refresh_token', __( 'Refresh token failed.', 'infomaniak-openid-connect' ) );
 		}
 
 		return $response;
@@ -285,7 +285,7 @@ class OpenID_Connect_Infomaniak_Client {
 	 */
 	public function get_token_response( $token_result ) {
 		if ( ! isset( $token_result['body'] ) ) {
-			return new WP_Error( 'missing-token-body', __( 'Missing token body.', 'infomaniak-openid-connect-infomaniak' ), $token_result );
+			return new WP_Error( 'missing-token-body', __( 'Missing token body.', 'infomaniak-openid-connect' ), $token_result );
 		}
 
 		// Extract the token response from token.
@@ -293,7 +293,7 @@ class OpenID_Connect_Infomaniak_Client {
 
 		// Check that the token response body was able to be parsed.
 		if ( is_null( $token_response ) ) {
-			return new WP_Error( 'invalid-token', __( 'Invalid token.', 'infomaniak-openid-connect-infomaniak' ), $token_result );
+			return new WP_Error( 'invalid-token', __( 'Invalid token.', 'infomaniak-openid-connect' ), $token_result );
 		}
 
 		if ( isset( $token_response['error'] ) ) {
@@ -330,7 +330,7 @@ class OpenID_Connect_Infomaniak_Client {
 		$request['headers']['Authorization'] = 'Bearer ' . $access_token;
 
 		// Add Host header - required for when the openid-connect endpoint is behind a reverse-proxy.
-		$parsed_url = parse_url( $this->endpoint_userinfo );
+		$parsed_url = wp_parse_url( $this->endpoint_userinfo );
 		$host = $parsed_url['host'];
 
 		if ( ! empty( $parsed_url['port'] ) ) {
@@ -346,7 +346,7 @@ class OpenID_Connect_Infomaniak_Client {
 		$this->logger->log( $this->endpoint_userinfo, 'request_userinfo', $end_time - $start_time );
 
 		if ( is_wp_error( $response ) ) {
-			$response->add( 'request_userinfo', __( 'Request for userinfo failed.', 'infomaniak-openid-connect-infomaniak' ) );
+			$response->add( 'request_userinfo', __( 'Request for userinfo failed.', 'infomaniak-openid-connect' ) );
 		}
 
 		return $response;
@@ -361,7 +361,7 @@ class OpenID_Connect_Infomaniak_Client {
 	 */
 	public function new_state( $redirect_to ) {
 		// New state w/ timestamp.
-		$state = md5( mt_rand() . microtime( true ) );
+		$state = md5( wp_rand() . microtime( true ) );
 		$state_value = array(
 			$state => array(
 				'redirect_to' => $redirect_to,
@@ -406,7 +406,7 @@ class OpenID_Connect_Infomaniak_Client {
 	 */
 	public function get_authentication_state( $request ) {
 		if ( ! isset( $request['state'] ) ) {
-			return new WP_Error( 'missing-authentication-state', __( 'Missing authentication state.', 'infomaniak-openid-connect-infomaniak' ), $request );
+			return new WP_Error( 'missing-authentication-state', __( 'Missing authentication state.', 'infomaniak-openid-connect' ), $request );
 		}
 
 		return $request['state'];
@@ -443,14 +443,14 @@ class OpenID_Connect_Infomaniak_Client {
 	public function get_id_token_claim( $token_response ) {
 		// Validate there is an id_token.
 		if ( ! isset( $token_response['id_token'] ) ) {
-			return new WP_Error( 'no-identity-token', __( 'No identity token.', 'infomaniak-openid-connect-infomaniak' ), $token_response );
+			return new WP_Error( 'no-identity-token', __( 'No identity token.', 'infomaniak-openid-connect' ), $token_response );
 		}
 
 		// Break apart the id_token in the response for decoding.
 		$tmp = explode( '.', $token_response['id_token'] );
 
 		if ( ! isset( $tmp[1] ) ) {
-			return new WP_Error( 'missing-identity-token', __( 'Missing identity token.', 'infomaniak-openid-connect-infomaniak' ), $token_response );
+			return new WP_Error( 'missing-identity-token', __( 'Missing identity token.', 'infomaniak-openid-connect' ), $token_response );
 		}
 
 		// Extract the id_token's claims from the token.
@@ -477,18 +477,18 @@ class OpenID_Connect_Infomaniak_Client {
 	 */
 	public function validate_id_token_claim( $id_token_claim ) {
 		if ( ! is_array( $id_token_claim ) ) {
-			return new WP_Error( 'bad-id-token-claim', __( 'Bad ID token claim.', 'infomaniak-openid-connect-infomaniak' ), $id_token_claim );
+			return new WP_Error( 'bad-id-token-claim', __( 'Bad ID token claim.', 'infomaniak-openid-connect' ), $id_token_claim );
 		}
 
 		// Validate the identification data and it's value.
 		if ( ! isset( $id_token_claim['sub'] ) || empty( $id_token_claim['sub'] ) ) {
-			return new WP_Error( 'no-subject-identity', __( 'No subject identity.', 'infomaniak-openid-connect-infomaniak' ), $id_token_claim );
+			return new WP_Error( 'no-subject-identity', __( 'No subject identity.', 'infomaniak-openid-connect' ), $id_token_claim );
 		}
 
 		// Validate acr values when the option is set in the configuration.
 		if ( ! empty( $this->acr_values ) && isset( $id_token_claim['acr'] ) ) {
 			if ( $this->acr_values != $id_token_claim['acr'] ) {
-				return new WP_Error( 'no-match-acr', __( 'No matching acr values.', 'infomaniak-openid-connect-infomaniak' ), $id_token_claim );
+				return new WP_Error( 'no-match-acr', __( 'No matching acr values.', 'infomaniak-openid-connect' ), $id_token_claim );
 			}
 		}
 
@@ -508,7 +508,7 @@ class OpenID_Connect_Infomaniak_Client {
 
 		// Make sure we didn't get an error, and that the response body exists.
 		if ( is_wp_error( $user_claim_result ) || ! isset( $user_claim_result['body'] ) ) {
-			return new WP_Error( 'bad-claim', __( 'Bad user claim.', 'infomaniak-openid-connect-infomaniak' ), $user_claim_result );
+			return new WP_Error( 'bad-claim', __( 'Bad user claim.', 'infomaniak-openid-connect' ), $user_claim_result );
 		}
 
 		$user_claim = json_decode( $user_claim_result['body'], true );
@@ -528,12 +528,12 @@ class OpenID_Connect_Infomaniak_Client {
 	public function validate_user_claim( $user_claim, $id_token_claim ) {
 		// Validate the user claim.
 		if ( ! is_array( $user_claim ) ) {
-			return new WP_Error( 'invalid-user-claim', __( 'Invalid user claim.', 'infomaniak-openid-connect-infomaniak' ), $user_claim );
+			return new WP_Error( 'invalid-user-claim', __( 'Invalid user claim.', 'infomaniak-openid-connect' ), $user_claim );
 		}
 
 		// Allow for errors from the IDP.
 		if ( isset( $user_claim['error'] ) ) {
-			$message = __( 'Error from the IDP.', 'infomaniak-openid-connect-infomaniak' );
+			$message = __( 'Error from the IDP.', 'infomaniak-openid-connect' );
 			if ( ! empty( $user_claim['error_description'] ) ) {
 				$message = $user_claim['error_description'];
 			}
@@ -542,14 +542,14 @@ class OpenID_Connect_Infomaniak_Client {
 
 		// Make sure the id_token sub equals the user_claim sub, according to spec.
 		if ( $id_token_claim['sub'] !== $user_claim['sub'] ) {
-			return new WP_Error( 'incorrect-user-claim', __( 'Incorrect user claim.', 'infomaniak-openid-connect-infomaniak' ), func_get_args() );
+			return new WP_Error( 'incorrect-user-claim', __( 'Incorrect user claim.', 'infomaniak-openid-connect' ), func_get_args() );
 		}
 
 		// Allow for other plugins to alter the login success.
 		$login_user = apply_filters( 'openid-connect-infomaniak-user-login-test', true, $user_claim );
 
 		if ( ! $login_user ) {
-			return new WP_Error( 'unauthorized', __( 'Unauthorized access.', 'infomaniak-openid-connect-infomaniak' ), $login_user );
+			return new WP_Error( 'unauthorized', __( 'Unauthorized access.', 'infomaniak-openid-connect' ), $login_user );
 		}
 
 		return true;

@@ -66,12 +66,6 @@ Si vous rencontrez des problèmes avec le plugin :
 3. Consultez le journal des options du plugin pour plus d'informations sur les erreurs potentielles
 4. Vérifiez que les points de terminaison OAuth2 d'Infomaniak sont accessibles depuis votre serveur
 
-## Sécurité
-
-Si vous découvrez une vulnérabilité de sécurité dans ce plugin, veuillez la signaler de manière responsable :
-
-1. Via un message sécurisé Keybase à [infomaniak](https://keybase.io/infomaniak/chat)
-
 ## Contribution
 
 Les contributions à ce plugin sont les bienvenues ! N'hésitez pas à soumettre des pull requests ou à signaler des problèmes via le dépôt GitHub du projet.

@@ -105,8 +105,8 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 	 */
 	public function admin_menu() {
 		add_options_page(
-			__( 'Infomaniak OpenID Connect - Generic Client', 'infomaniak-openid-connect-infomaniak' ),
-			__( 'Infomaniak OpenID Connect Client', 'infomaniak-openid-connect-infomaniak' ),
+			__( 'Infomaniak OpenID Connect - Generic Client', 'infomaniak-openid-connect' ),
+			__( 'Infomaniak OpenID Connect Client', 'infomaniak-openid-connect' ),
 			'manage_options',
 			$this->options_page_name,
 			array( $this, 'settings_page' )
@@ -130,28 +130,28 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 
 		add_settings_section(
 			'client_settings',
-			__( 'Client Settings', 'infomaniak-openid-connect-infomaniak' ),
+			__( 'Client Settings', 'infomaniak-openid-connect' ),
 			array( $this, 'client_settings_description' ),
 			$this->options_page_name
 		);
 
 		add_settings_section(
 			'user_settings',
-			__( 'WordPress User Settings', 'infomaniak-openid-connect-infomaniak' ),
+			__( 'WordPress User Settings', 'infomaniak-openid-connect' ),
 			array( $this, 'user_settings_description' ),
 			$this->options_page_name
 		);
 
 		add_settings_section(
 			'authorization_settings',
-			__( 'Authorization Settings', 'infomaniak-openid-connect-infomaniak' ),
+			__( 'Authorization Settings', 'infomaniak-openid-connect' ),
 			array( $this, 'authorization_settings_description' ),
 			$this->options_page_name
 		);
 
 		add_settings_section(
 			'log_settings',
-			__( 'Log Settings', 'infomaniak-openid-connect-infomaniak' ),
+			__( 'Log Settings', 'infomaniak-openid-connect' ),
 			array( $this, 'log_settings_description' ),
 			$this->options_page_name
 		);
@@ -209,42 +209,42 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 		 */
 		$fields = array(
 			'login_type'        => array(
-				'title'       => __( 'Login Type', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Select how the client (login form) should provide login options.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Login Type', 'infomaniak-openid-connect' ),
+				'description' => __( 'Select how the client (login form) should provide login options.', 'infomaniak-openid-connect' ),
 				'type'        => 'select',
 				'options'     => array(
-					'button' => __( 'OpenID Connect button on login form', 'infomaniak-openid-connect-infomaniak' ),
-					'auto'   => __( 'Auto Login - SSO', 'infomaniak-openid-connect-infomaniak' ),
+					'button' => __( 'OpenID Connect button on login form', 'infomaniak-openid-connect' ),
+					'auto'   => __( 'Auto Login - SSO', 'infomaniak-openid-connect' ),
 				),
 				'disabled'    => defined( 'INFOMANIAK_OIDC_LOGIN_TYPE' ),
 				'section'     => 'client_settings',
 			),
 			'client_id'         => array(
-				'title'       => __( 'Client ID', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'The ID this client will be recognized as when connecting the to Identity provider server.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Client ID', 'infomaniak-openid-connect' ),
+				'description' => __( 'The ID this client will be recognized as when connecting the to Identity provider server.', 'infomaniak-openid-connect' ),
 				'example'     => 'my-wordpress-client-id',
 				'type'        => 'text',
 				'disabled'    => defined( 'INFOMANIAK_OIDC_CLIENT_ID' ),
 				'section'     => 'client_settings',
 			),
 			'client_secret'     => array(
-				'title'       => __( 'Client Secret Key', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Arbitrary secret key the server expects from this client. Can be anything, but should be very unique.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Client Secret Key', 'infomaniak-openid-connect' ),
+				'description' => __( 'Arbitrary secret key the server expects from this client. Can be anything, but should be very unique.', 'infomaniak-openid-connect' ),
 				'type'        => 'text',
 				'disabled'    => defined( 'INFOMANIAK_OIDC_CLIENT_SECRET' ),
 				'section'     => 'client_settings',
 			),
 			'scope'             => array(
-				'title'       => __( 'OpenID Scope', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Space separated list of scopes this client should access.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'OpenID Scope', 'infomaniak-openid-connect' ),
+				'description' => __( 'Space separated list of scopes this client should access.', 'infomaniak-openid-connect' ),
 				'example'     => 'email profile openid',
 				'type'        => 'text',
 				'disabled'    => defined( 'INFOMANIAK_OIDC_CLIENT_SCOPE' ),
 				'section'     => 'client_settings',
 			),
 			'endpoint_login'    => array(
-				'title'       => __( 'Login Endpoint URL', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Identify provider authorization endpoint.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Login Endpoint URL', 'infomaniak-openid-connect' ),
+				'description' => __( 'Identify provider authorization endpoint.', 'infomaniak-openid-connect' ),
 				//'example'     => 'https://example.com/oauth2/authorize',
 				'type'        => 'text',
 				'disabled'    => true,
@@ -252,8 +252,8 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 				'section'     => 'client_settings',
 			),
 			'endpoint_userinfo' => array(
-				'title'       => __( 'Userinfo Endpoint URL', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Identify provider User information endpoint.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Userinfo Endpoint URL', 'infomaniak-openid-connect' ),
+				'description' => __( 'Identify provider User information endpoint.', 'infomaniak-openid-connect' ),
 				//'example'     => 'https://example.com/oauth2/UserInfo',
 				'type'        => 'text',
 				'disabled'    => true,
@@ -261,8 +261,8 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 				'section'     => 'client_settings',
 			),
 			'endpoint_token'    => array(
-				'title'       => __( 'Token Validation Endpoint URL', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Identify provider token endpoint.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Token Validation Endpoint URL', 'infomaniak-openid-connect' ),
+				'description' => __( 'Identify provider token endpoint.', 'infomaniak-openid-connect' ),
 				//'example'     => 'https://example.com/oauth2/token',
 				'type'        => 'text',
 				'disabled'    => true,
@@ -271,8 +271,8 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 			),
             /*
 			'endpoint_end_session'    => array(
-				'title'       => __( 'End Session Endpoint URL', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Identify provider logout endpoint.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'End Session Endpoint URL', 'infomaniak-openid-connect' ),
+				'description' => __( 'Identify provider logout endpoint.', 'infomaniak-openid-connect' ),
 				'example'     => 'https://example.com/oauth2/logout',
 				'type'        => 'text',
 				'disabled'    => defined( 'INFOMANIAK_OIDC_ENDPOINT_LOGOUT_URL' ),
@@ -280,123 +280,123 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 			),
             */
 			'acr_values'    => array(
-				'title'       => __( 'ACR values', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Use a specific defined authentication contract from the IDP - optional.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'ACR values', 'infomaniak-openid-connect' ),
+				'description' => __( 'Use a specific defined authentication contract from the IDP - optional.', 'infomaniak-openid-connect' ),
 				'type'        => 'text',
 				'disabled'    => defined( 'INFOMANIAK_OIDC_ACR_VALUES' ),
 				'section'     => 'client_settings',
 			),
 			'identity_key'     => array(
-				'title'       => __( 'Identity Key', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Where in the user claim array to find the user\'s identification data. Possible standard values: preferred_username, name, or sub. If you\'re having trouble, use "sub".', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Identity Key', 'infomaniak-openid-connect' ),
+				'description' => __( 'Where in the user claim array to find the user\'s identification data. Possible standard values: preferred_username, name, or sub. If you\'re having trouble, use "sub".', 'infomaniak-openid-connect' ),
 				'example'     => 'sub',
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
 			'no_sslverify'      => array(
-				'title'       => __( 'Disable SSL Verify', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Disable SSL Verify', 'infomaniak-openid-connect' ),
 				// translators: %1$s HTML tags for layout/styles, %2$s closing HTML tag for styles.
-				'description' => sprintf( __( 'Do not require SSL verification during authorization. The OAuth extension uses curl to make the request. By default CURL will generally verify the SSL certificate to see if its valid an issued by an accepted CA. This setting disabled that verification.%1$sNot recommended for production sites.%2$s', 'infomaniak-openid-connect-infomaniak' ), '<br><strong>', '</strong>' ),
+				'description' => sprintf( __( 'Do not require SSL verification during authorization. The OAuth extension uses curl to make the request. By default CURL will generally verify the SSL certificate to see if its valid an issued by an accepted CA. This setting disabled that verification.%1$sNot recommended for production sites.%2$s', 'infomaniak-openid-connect' ), '<br><strong>', '</strong>' ),
 				'type'        => 'checkbox',
 				'section'     => 'client_settings',
 			),
 			'http_request_timeout'      => array(
-				'title'       => __( 'HTTP Request Timeout', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Set the timeout for requests made to the IDP. Default value is 5.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'HTTP Request Timeout', 'infomaniak-openid-connect' ),
+				'description' => __( 'Set the timeout for requests made to the IDP. Default value is 5.', 'infomaniak-openid-connect' ),
 				'example'     => 30,
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
 			'enforce_privacy'   => array(
-				'title'       => __( 'Enforce Privacy', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Require users be logged in to see the site.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Enforce Privacy', 'infomaniak-openid-connect' ),
+				'description' => __( 'Require users be logged in to see the site.', 'infomaniak-openid-connect' ),
 				'type'        => 'checkbox',
 				'disabled'    => defined( 'OIDC_ENFORCE_PRIVACY' ),
 				'section'     => 'authorization_settings',
 			),
 			'alternate_redirect_uri'   => array(
-				'title'       => __( 'Alternate Redirect URI', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Provide an alternative redirect route. Useful if your server is causing issues with the default admin-ajax method. You must flush rewrite rules after changing this setting. This can be done by saving the Permalinks settings page.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Alternate Redirect URI', 'infomaniak-openid-connect' ),
+				'description' => __( 'Provide an alternative redirect route. Useful if your server is causing issues with the default admin-ajax method. You must flush rewrite rules after changing this setting. This can be done by saving the Permalinks settings page.', 'infomaniak-openid-connect' ),
 				'type'        => 'checkbox',
 				'section'     => 'authorization_settings',
 			),
 			'nickname_key'     => array(
-				'title'       => __( 'Nickname Key', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Where in the user claim array to find the user\'s nickname. Possible standard values: preferred_username, name, or sub.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Nickname Key', 'infomaniak-openid-connect' ),
+				'description' => __( 'Where in the user claim array to find the user\'s nickname. Possible standard values: preferred_username, name, or sub.', 'infomaniak-openid-connect' ),
 				'example'     => 'name',
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
 			'email_format'     => array(
-				'title'       => __( 'Email Formatting', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'String from which the user\'s email address is built. Specify "{email}" as long as the user claim contains an email claim.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Email Formatting', 'infomaniak-openid-connect' ),
+				'description' => __( 'String from which the user\'s email address is built. Specify "{email}" as long as the user claim contains an email claim.', 'infomaniak-openid-connect' ),
 				'example'     => '{email}',
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
 			'displayname_format'     => array(
-				'title'       => __( 'Display Name Formatting', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'String from which the user\'s display name is built.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Display Name Formatting', 'infomaniak-openid-connect' ),
+				'description' => __( 'String from which the user\'s display name is built.', 'infomaniak-openid-connect' ),
 				'example'     => '{given_name} {family_name}',
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
 			'identify_with_username'     => array(
-				'title'       => __( 'Identify with User Name', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'If checked, the user\'s identity will be determined by the user name instead of the email address.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Identify with User Name', 'infomaniak-openid-connect' ),
+				'description' => __( 'If checked, the user\'s identity will be determined by the user name instead of the email address.', 'infomaniak-openid-connect' ),
 				'type'        => 'checkbox',
 				'section'     => 'client_settings',
 			),
 			'state_time_limit'     => array(
-				'title'       => __( 'State time limit', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'State valid time in seconds. Defaults to 180', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'State time limit', 'infomaniak-openid-connect' ),
+				'description' => __( 'State valid time in seconds. Defaults to 180', 'infomaniak-openid-connect' ),
 				'type'        => 'number',
 				'section'     => 'client_settings',
 			),
 			'token_refresh_enable'   => array(
-				'title'       => __( 'Enable Refresh Token', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'If checked, support refresh tokens used to obtain access tokens from supported IDPs.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Enable Refresh Token', 'infomaniak-openid-connect' ),
+				'description' => __( 'If checked, support refresh tokens used to obtain access tokens from supported IDPs.', 'infomaniak-openid-connect' ),
 				'type'        => 'checkbox',
 				'section'     => 'client_settings',
 			),
 			'link_existing_users'   => array(
-				'title'       => __( 'Link Existing Users', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'If a WordPress account already exists with the same identity as a newly-authenticated user over OpenID Connect, login as that user instead of generating an error.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Link Existing Users', 'infomaniak-openid-connect' ),
+				'description' => __( 'If a WordPress account already exists with the same identity as a newly-authenticated user over OpenID Connect, login as that user instead of generating an error.', 'infomaniak-openid-connect' ),
 				'type'        => 'checkbox',
 				'disabled'    => defined( 'OIDC_LINK_EXISTING_USERS' ),
 				'section'     => 'user_settings',
 			),
 			'create_if_does_not_exist'   => array(
-				'title'       => __( 'Create user if does not exist', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'If the user identity is not linked to an existing WordPress user, it is created. If this setting is not enabled, and if the user authenticates with an account which is not linked to an existing WordPress user, then the authentication will fail.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Create user if does not exist', 'infomaniak-openid-connect' ),
+				'description' => __( 'If the user identity is not linked to an existing WordPress user, it is created. If this setting is not enabled, and if the user authenticates with an account which is not linked to an existing WordPress user, then the authentication will fail.', 'infomaniak-openid-connect' ),
 				'type'        => 'checkbox',
 				'disabled'    => defined( 'OIDC_CREATE_IF_DOES_NOT_EXIST' ),
 				'section'     => 'user_settings',
 			),
 			'redirect_user_back'   => array(
-				'title'       => __( 'Redirect Back to Origin Page', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'After a successful OpenID Connect authentication, this will redirect the user back to the page on which they clicked the OpenID Connect login button. This will cause the login process to proceed in a traditional WordPress fashion. For example, users logging in through the default wp-login.php page would end up on the WordPress Dashboard and users logging in through the WooCommerce "My Account" page would end up on their account page.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Redirect Back to Origin Page', 'infomaniak-openid-connect' ),
+				'description' => __( 'After a successful OpenID Connect authentication, this will redirect the user back to the page on which they clicked the OpenID Connect login button. This will cause the login process to proceed in a traditional WordPress fashion. For example, users logging in through the default wp-login.php page would end up on the WordPress Dashboard and users logging in through the WooCommerce "My Account" page would end up on their account page.', 'infomaniak-openid-connect' ),
 				'type'        => 'checkbox',
 				'disabled'    => defined( 'OIDC_REDIRECT_USER_BACK' ),
 				'section'     => 'user_settings',
 			),
 			'redirect_on_logout'   => array(
-				'title'       => __( 'Redirect to the login screen when session is expired', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'When enabled, this will automatically redirect the user back to the WordPress login page if their access token has expired.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Redirect to the login screen when session is expired', 'infomaniak-openid-connect' ),
+				'description' => __( 'When enabled, this will automatically redirect the user back to the WordPress login page if their access token has expired.', 'infomaniak-openid-connect' ),
 				'type'        => 'checkbox',
 				'disabled'    => defined( 'OIDC_REDIRECT_ON_LOGOUT' ),
 				'section'     => 'user_settings',
 			),
 			'enable_logging'    => array(
-				'title'       => __( 'Enable Logging', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Very simple log messages for debugging purposes.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Enable Logging', 'infomaniak-openid-connect' ),
+				'description' => __( 'Very simple log messages for debugging purposes.', 'infomaniak-openid-connect' ),
 				'type'        => 'checkbox',
 				'disabled'    => defined( 'OIDC_ENABLE_LOGGING' ),
 				'section'     => 'log_settings',
 			),
 			'log_limit'         => array(
-				'title'       => __( 'Log Limit', 'infomaniak-openid-connect-infomaniak' ),
-				'description' => __( 'Number of items to keep in the log. These logs are stored as an option in the database, so space is limited.', 'infomaniak-openid-connect-infomaniak' ),
+				'title'       => __( 'Log Limit', 'infomaniak-openid-connect' ),
+				'description' => __( 'Number of items to keep in the log. These logs are stored as an option in the database, so space is limited.', 'infomaniak-openid-connect' ),
 				'type'        => 'number',
 				'disabled'    => defined( 'OIDC_LOG_LIMIT' ),
 				'section'     => 'log_settings',
@@ -434,7 +434,7 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 	 * @return void
 	 */
 	public function settings_page() {
-		wp_enqueue_style( 'infomaniak-openid-connect-infomaniak-admin', plugin_dir_url( __DIR__ ) . 'css/styles-admin.css', array(), OpenID_Connect_Infomaniak::VERSION, 'all' );
+		wp_enqueue_style( 'infomaniak-openid-connect-admin', plugin_dir_url( __DIR__ ) . 'css/styles-admin.css', array(), OpenID_Connect_Infomaniak::VERSION, 'all' );
 
 		$redirect_uri = admin_url( 'admin-ajax.php?action=openid-connect-authorize' );
 
@@ -453,31 +453,26 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 				settings_fields( $this->settings_field_group );
 				do_settings_sections( $this->options_page_name );
 				submit_button();
-
-				// Simple debug to view settings array.
-				if ( isset( $_GET['debug'] ) ) {
-					var_dump( $this->settings->get_values() );
-				}
 				?>
 			</form>
 
-			<h4><?php esc_html_e( 'Notes', 'infomaniak-openid-connect-infomaniak' ); ?></h4>
+			<h4><?php esc_html_e( 'Notes', 'infomaniak-openid-connect' ); ?></h4>
 
 			<p class="description">
-				<strong><?php esc_html_e( 'Redirect URI', 'infomaniak-openid-connect-infomaniak' ); ?></strong>
+				<strong><?php esc_html_e( 'Redirect URI', 'infomaniak-openid-connect' ); ?></strong>
 				<code><?php print esc_url( $redirect_uri ); ?></code>
 			</p>
 			<p class="description">
-				<strong><?php esc_html_e( 'Login Button Shortcode', 'infomaniak-openid-connect-infomaniak' ); ?></strong>
+				<strong><?php esc_html_e( 'Login Button Shortcode', 'infomaniak-openid-connect' ); ?></strong>
 				<code>[infomaniak_connect_generic_login_button]</code>
 			</p>
 			<p class="description">
-				<strong><?php esc_html_e( 'Authentication URL Shortcode', 'infomaniak-openid-connect-infomaniak' ); ?></strong>
+				<strong><?php esc_html_e( 'Authentication URL Shortcode', 'infomaniak-openid-connect' ); ?></strong>
 				<code>[infomaniak_connect_generic_auth_url]</code>
 			</p>
 
 			<?php if ( $this->settings->enable_logging ) { ?>
-				<h2><?php esc_html_e( 'Logs', 'infomaniak-openid-connect-infomaniak' ); ?></h2>
+				<h2><?php esc_html_e( 'Logs', 'infomaniak-openid-connect' ); ?></h2>
 				<div id="logger-table-wrapper">
 					<?php print wp_kses_post( $this->logger->get_logs_table() ); ?>
 				</div>
@@ -567,7 +562,7 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 		<p class="description">
 			<?php print wp_kses_post( $field['description'] ); ?>
 			<?php if ( isset( $field['example'] ) ) : ?>
-				<br/><strong><?php esc_html_e( 'Example', 'infomaniak-openid-connect-infomaniak' ); ?>: </strong>
+				<br/><strong><?php esc_html_e( 'Example', 'infomaniak-openid-connect' ); ?>: </strong>
 				<code><?php print esc_html( $field['example'] ); ?></code>
 			<?php endif; ?>
 		</p>
@@ -580,7 +575,7 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 	 * @return void
 	 */
 	public function client_settings_description() {
-		esc_html_e( 'Enter your Infomaniak OpenID Connect identity provider settings.', 'infomaniak-openid-connect-infomaniak' );
+		esc_html_e( 'Enter your Infomaniak OpenID Connect identity provider settings.', 'infomaniak-openid-connect' );
 	}
 
 	/**
@@ -589,7 +584,7 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 	 * @return void
 	 */
 	public function user_settings_description() {
-		esc_html_e( 'Modify the interaction between OpenID Connect and WordPress users.', 'infomaniak-openid-connect-infomaniak' );
+		esc_html_e( 'Modify the interaction between OpenID Connect and WordPress users.', 'infomaniak-openid-connect' );
 	}
 
 	/**
@@ -598,7 +593,7 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 	 * @return void
 	 */
 	public function authorization_settings_description() {
-		esc_html_e( 'Control the authorization mechanics of the site.', 'infomaniak-openid-connect-infomaniak' );
+		esc_html_e( 'Control the authorization mechanics of the site.', 'infomaniak-openid-connect' );
 	}
 
 	/**
@@ -607,6 +602,6 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 	 * @return void
 	 */
 	public function log_settings_description() {
-		esc_html_e( 'Log information about login attempts through OpenID Connect Infomaniak.', 'infomaniak-openid-connect-infomaniak' );
+		esc_html_e( 'Log information about login attempts through OpenID Connect Infomaniak.', 'infomaniak-openid-connect' );
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * OpenID Connect Infomaniak Client
+ * OpenID Connect Infomaniak
  *
  * This plugin provides the ability to authenticate users with Identity
  * Providers using the OpenID Connect OAuth2 API with Authorization Code Flow.
@@ -13,18 +13,18 @@
  *
  * @wordpress-plugin
  * Plugin Name:       OpenID Connect Infomaniak
- * Plugin URI:        https://github.com/infomaniak/openid-connect-infomaniak
+ * Plugin URI:        https://github.com/Infomaniak/openid-connect-infomaniak
  * Description:       Connect to Infomaniak OpenID provider using Authorization Code Flow.
- * Version:           3.10.0
+ * Version:           1.0.0
  * Requires at least: 5.0
- * Requires PHP:      7.4
+ * Requires PHP:      8.0
  * Author:            infomaniak
  * Author URI:        http://www.infomaniak.com
- * Text Domain:       infomaniak-openid-connect-infomaniak
+ * Text Domain:       openid-connect-infomaniak
  * Domain Path:       /languages
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * GitHub Plugin URI: https://github.com/infomaniak/openid-connect-infomaniak
+ * GitHub Plugin URI: https://github.com/Infomaniak/openid-connect-infomaniak
  */
 
 /*
@@ -90,7 +90,7 @@ class OpenID_Connect_Infomaniak {
 	 *
 	 * @var string
 	 */
-	const VERSION = '3.10.0';
+	const VERSION = '1.0.0';
 
 	/**
 	 * Plugin settings.
@@ -238,7 +238,7 @@ class OpenID_Connect_Infomaniak {
 	 */
 	public function enforce_privacy_feeds( $content ) {
 		if ( $this->settings->enforce_privacy && ! is_user_logged_in() ) {
-			$content = __( 'Private site', 'infomaniak-openid-connect-infomaniak' );
+			$content = __( 'Private site', 'infomaniak-openid-connect' );
 		}
 		return $content;
 	}
@@ -389,7 +389,7 @@ class OpenID_Connect_Infomaniak {
 				'enforce_privacy'          => defined( 'OIDC_ENFORCE_PRIVACY' ) ? intval( OIDC_ENFORCE_PRIVACY ) : 0,
 				'alternate_redirect_uri'   => 1,
 				'token_refresh_enable'     => 1,
-				'link_existing_users'      => defined( 'OIDC_LINK_EXISTING_USERS' ) ? intval( OIDC_LINK_EXISTING_USERS ) : 0,
+				'link_existing_users'      => defined( 'OIDC_LINK_EXISTING_USERS' ) ? intval( OIDC_LINK_EXISTING_USERS ) : 1,
 				'create_if_does_not_exist' => defined( 'OIDC_CREATE_IF_DOES_NOT_EXIST' ) ? intval( OIDC_CREATE_IF_DOES_NOT_EXIST ) : 1,
 				'redirect_user_back'       => defined( 'OIDC_REDIRECT_USER_BACK' ) ? intval( OIDC_REDIRECT_USER_BACK ) : 0,
 				'redirect_on_logout'       => defined( 'OIDC_REDIRECT_ON_LOGOUT' ) ? intval( OIDC_REDIRECT_ON_LOGOUT ) : 1,
