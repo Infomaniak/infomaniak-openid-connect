@@ -138,7 +138,7 @@ class OpenID_Connect_Infomaniak_Login_Form {
 
         $atts = shortcode_atts(
             array(
-                'button_text' => __('Login with Infomaniak OpenID Connect', 'infomaniak-openid-connect'),
+                'button_text' => __('Login with Infomaniak', 'infomaniak-openid-connect'),
             ),
             $atts,
             'infomaniak_connect_generic_login_button'

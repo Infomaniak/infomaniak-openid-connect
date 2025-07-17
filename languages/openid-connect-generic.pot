@@ -149,7 +149,7 @@ msgid "ERROR (%1$s)"
 msgstr ""
 
 #: includes/openid-connect-infomaniak-login-form.php:141
-msgid "Login with Infomaniak OpenID Connect"
+msgid "Login with Infomaniak"
 msgstr ""
 
 #: includes/openid-connect-infomaniak-option-logger.php:228
