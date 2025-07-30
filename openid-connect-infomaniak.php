@@ -15,7 +15,7 @@
  * Plugin Name:       OpenID Connect Infomaniak
  * Plugin URI:        https://github.com/Infomaniak/openid-connect-infomaniak
  * Description:       Connect to Infomaniak OpenID provider using Authorization Code Flow.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 5.0
  * Requires PHP:      8.0
  * Author:            infomaniak
@@ -90,7 +90,7 @@ class OpenID_Connect_Infomaniak {
 	 *
 	 * @var string
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.0.1';
 
 	/**
 	 * Plugin settings.
