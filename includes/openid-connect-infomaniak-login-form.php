@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Login form and login button handling class.
  *
@@ -119,7 +121,7 @@ class OpenID_Connect_Infomaniak_Login_Form {
         ob_start();
         ?>
         <div id="login_error"><?php // translators: %1$s is the error code from the IDP. ?>
-			<strong><?php printf( esc_html__( 'ERROR (%1$s)', 'infomaniak-openid-connect' ), esc_html( $error_code ) ); ?>: </strong>
+			<strong><?php printf( esc_html__( 'ERROR (%1$s)', 'openid-connect-infomaniak' ), esc_html( $error_code ) ); ?>: </strong>
             <?php print esc_html($error_message); ?>
         </div>
         <?php
@@ -138,7 +140,7 @@ class OpenID_Connect_Infomaniak_Login_Form {
 
         $atts = shortcode_atts(
             array(
-                'button_text' => __('Login with Infomaniak', 'infomaniak-openid-connect'),
+                'button_text' => __('Login with Infomaniak', 'openid-connect-infomaniak'),
             ),
             $atts,
             'infomaniak_connect_generic_login_button'

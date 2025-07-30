@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * Plugin Infomaniac/oAuth client class.
  *
@@ -281,7 +283,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 				wp_logout();
 
 				if ( $this->settings->redirect_on_logout ) {
-					$this->error_redirect( new WP_Error( 'access-token-expired', __( 'Session expired. Please login again.', 'infomaniak-openid-connect' ) ) );
+					$this->error_redirect( new WP_Error( 'access-token-expired', __( 'Session expired. Please login again.', 'openid-connect-infomaniak' ) ) );
 				}
 
 				return;
@@ -527,7 +529,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 					$this->error_redirect( $user );
 				}
 			} else {
-				$this->error_redirect( new WP_Error( 'identity-not-map-existing-user', __( 'User identity is not linked to an existing WordPress user.', 'infomaniak-openid-connect' ), $user_claim ) );
+				$this->error_redirect( new WP_Error( 'identity-not-map-existing-user', __( 'User identity is not linked to an existing WordPress user.', 'openid-connect-infomaniak' ), $user_claim ) );
 			}
 		}
 
@@ -586,7 +588,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 
 		// Ensure the found user is a real WP_User.
 		if ( ! is_a( $user, 'WP_User' ) || ! $user->exists() ) {
-			return new WP_Error( 'invalid-user', __( 'Invalid user.', 'infomaniak-openid-connect' ), $user );
+			return new WP_Error( 'invalid-user', __( 'Invalid user.', 'openid-connect-infomaniak' ), $user );
 		}
 
 		return true;
@@ -804,7 +806,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 		}
 		if ( empty( $desired_username ) ) {
 			// Nothing to build a name from.
-			return new WP_Error( 'no-username', __( 'No appropriate username found.', 'infomaniak-openid-connect' ), $user_claim );
+			return new WP_Error( 'no-username', __( 'No appropriate username found.', 'openid-connect-infomaniak' ), $user_claim );
 		}
 
 		// Don't use the full email address for a username.
@@ -814,7 +816,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 		$sanitized_username = sanitize_user( $desired_username, true );
 		if ( empty( $sanitized_username ) ) {
 			// translators: %1$s is the santitized version of the username from the IDP.
-			return new WP_Error( 'username-sanitization-failed', sprintf( __( 'Username %1$s could not be sanitized.', 'infomaniak-openid-connect' ), $desired_username ), $desired_username );
+			return new WP_Error( 'username-sanitization-failed', sprintf( __( 'Username %1$s could not be sanitized.', 'openid-connect-infomaniak' ), $desired_username ), $desired_username );
 		}
 
 		return $sanitized_username;
@@ -836,7 +838,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 
 		if ( empty( $desired_nickname ) ) {
 			// translators: %1$s is the configured User Claim nickname key.
-			return new WP_Error( 'no-nickname', sprintf( __( 'No nickname found in user claim using key: %1$s.', 'infomaniak-openid-connect' ), $this->settings->nickname_key ), $this->settings->nickname_key );
+			return new WP_Error( 'no-nickname', sprintf( __( 'No nickname found in user claim using key: %1$s.', 'openid-connect-infomaniak' ), $this->settings->nickname_key ), $this->settings->nickname_key );
 		}
 
 		return $desired_nickname;
@@ -933,7 +935,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 					if ( $error_on_missing_key ) {
 						return new WP_Error(
 							'incomplete-user-claim',
-							__( 'User claim incomplete.', 'infomaniak-openid-connect' ),
+							__( 'User claim incomplete.', 'openid-connect-infomaniak' ),
 							array(
 								'message'    => 'Unable to find key: ' . $key . ' in user_claim',
 								'hint'       => 'Verify OpenID Scope includes a scope with the attributes you need',
@@ -1036,7 +1038,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 
 			// Make sure we didn't get an error.
 			if ( is_wp_error( $user_claim_result ) ) {
-				return new WP_Error( 'bad-user-claim-result', __( 'Bad user claim result.', 'infomaniak-openid-connect' ), $user_claim_result );
+				return new WP_Error( 'bad-user-claim-result', __( 'Bad user claim result.', 'openid-connect-infomaniak' ), $user_claim_result );
 			}
 
 			$user_claim = json_decode( $user_claim_result['body'], true );
@@ -1102,7 +1104,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 		$create_user = apply_filters( 'openid-connect-infomaniak-user-creation-test', $this->settings->create_if_does_not_exist, $user_claim );
 
 		if ( ! $create_user ) {
-			return new WP_Error( 'cannot-authorize', __( 'Can not authorize.', 'infomaniak-openid-connect' ), $create_user );
+			return new WP_Error( 'cannot-authorize', __( 'Can not authorize.', 'openid-connect-infomaniak' ), $create_user );
 		}
 
 		// Copy the username for incrementing.
@@ -1131,7 +1133,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 
 		// Make sure we didn't fail in creating the user.
 		if ( is_wp_error( $uid ) ) {
-			return new WP_Error( 'failed-user-creation', __( 'Failed user creation.', 'infomaniak-openid-connect' ), $uid );
+			return new WP_Error( 'failed-user-creation', __( 'Failed user creation.', 'openid-connect-infomaniak' ), $uid );
 		}
 
 		// Retrieve our new user.

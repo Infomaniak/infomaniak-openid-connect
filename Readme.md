@@ -2,78 +2,78 @@
 
 ## Description
 
-Le plugin OpenID Connect Infomaniak Client permet d'intégrer facilement l'authentification OAuth2 avec Infomaniak dans votre site WordPress. Grâce à ce plugin, les utilisateurs peuvent se connecter à votre site WordPress en utilisant leurs identifiants Infomaniak, ce qui simplifie le processus d'authentification et renforce la sécurité.
+The OpenID Connect Infomaniak Client plugin allows easy integration of OAuth2 authentication with Infomaniak into your WordPress site. With this plugin, users can log into your WordPress site using their Infomaniak credentials, which simplifies the authentication process and enhances security.
 
-## Fonctionnalités
+## Features
 
-- Authentification des utilisateurs via les comptes Infomaniak
-- Configuration simplifiée de l'intégration OAuth2/OpenID Connect
-- Personnalisation du bouton de connexion
-- Création automatique de comptes WordPress liés aux comptes Infomaniak
-- Compatibilité avec les rôles et autorisations WordPress existants
-- Journal des options pour le débogage
+- User authentication via Infomaniak accounts
+- Simplified OAuth2/OpenID Connect integration configuration
+- Login button customization
+- Automatic creation of WordPress accounts linked to Infomaniak accounts
+- Compatibility with existing WordPress roles and permissions
+- Options logging for debugging
 
 ## Installation
 
-1. Téléchargez le plugin et extrayez son contenu dans le répertoire `/wp-content/plugins/` de votre site WordPress
-2. Activez le plugin via le menu 'Extensions' dans WordPress
-3. Accédez aux paramètres du plugin via 'Réglages > OpenID Connect Infomaniak'
+1. Download the plugin and extract its contents to the `/wp-content/plugins/` directory of your WordPress site
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Access the plugin settings via 'Settings > OpenID Connect Infomaniak'
 
 ## Configuration
 
-### Prérequis
+### Prerequisites
 
-Avant de configurer le plugin, vous devez créer une application OAuth2 dans votre espace Infomaniak :
+Before configuring the plugin, you must create an OAuth2 application in your Infomaniak space:
 
-1. Connectez-vous à votre compte Infomaniak
-2. Accédez à la section de gestion des API et applications
-3. Créez une nouvelle application OAuth2
-4. Notez l'ID client et le secret client qui vous seront fournis
-5. Configurez l'URL de redirection vers : `https://votre-site.com/openid-connect-authorize`
+1. Log into your Infomaniak account
+2. Access the API and applications management section
+3. Create a new OAuth2 application
+4. Note the client ID and client secret that will be provided to you
+5. Configure the redirect URL to: `https://your-site.com/openid-connect-authorize`
 
-### Paramètres du plugin
+### Plugin Settings
 
-Accédez à la page de configuration du plugin (Réglages > OpenID Connect Infomaniak) et renseignez les informations suivantes :
+Access the plugin configuration page (Settings > OpenID Connect Infomaniak) and fill in the following information:
 
-- **ID Client** : L'identifiant de votre application OAuth2 Infomaniak
-- **Secret Client** : Le secret de votre application OAuth2 Infomaniak
-- **URL d'autorisation** : URL du point de terminaison d'autorisation d'Infomaniak
-- **URL du jeton** : URL du point de terminaison du jeton d'Infomaniak
-- **URL des informations utilisateur** : URL du point de terminaison des informations utilisateur d'Infomaniak
-- **Portée de l'authentification** : Les scopes OAuth2 requis (généralement "openid email profile")
+- **Client ID**: The identifier of your Infomaniak OAuth2 application
+- **Client Secret**: The secret of your Infomaniak OAuth2 application
+- **Authorization URL**: URL of the Infomaniak authorization endpoint
+- **Token URL**: URL of the Infomaniak token endpoint
+- **User Information URL**: URL of the Infomaniak user information endpoint
+- **Authentication Scope**: The required OAuth2 scopes (typically "openid email profile")
 
-## Utilisation
+## Usage
 
-Une fois configuré, le plugin ajoutera automatiquement un bouton "Se connecter avec Infomaniak" sur votre formulaire de connexion WordPress. Les utilisateurs pourront cliquer sur ce bouton pour être redirigés vers la page d'authentification Infomaniak.
+Once configured, the plugin will automatically add a "Login with Infomaniak" button to your WordPress login form. Users can click this button to be redirected to the Infomaniak authentication page.
 
-Après une authentification réussie, les utilisateurs seront redirigés vers votre site WordPress et automatiquement connectés. Si c'est leur première connexion, un compte WordPress sera créé automatiquement avec les informations de leur profil Infomaniak.
+After successful authentication, users will be redirected to your WordPress site and automatically logged in. If it's their first login, a WordPress account will be automatically created with their Infomaniak profile information.
 
-## Personnalisation
+## Customization
 
-Le plugin offre plusieurs options de personnalisation :
+The plugin offers several customization options:
 
-- Texte et apparence du bouton de connexion
-- Comportement de redirection après authentification
-- Création et mise à jour automatique des comptes utilisateurs
-- Mappage des informations utilisateur entre Infomaniak et WordPress
+- Login button text and appearance
+- Post-authentication redirect behavior
+- Automatic user account creation and updates
+- User information mapping between Infomaniak and WordPress
 
-## Dépannage
+## Troubleshooting
 
-Si vous rencontrez des problèmes avec le plugin :
+If you encounter issues with the plugin:
 
-1. Vérifiez que l'ID client et le secret client sont correctement saisis
-2. Assurez-vous que l'URL de redirection est correctement configurée dans l'application Infomaniak
-3. Consultez le journal des options du plugin pour plus d'informations sur les erreurs potentielles
-4. Vérifiez que les points de terminaison OAuth2 d'Infomaniak sont accessibles depuis votre serveur
+1. Verify that the client ID and client secret are correctly entered
+2. Ensure that the redirect URL is properly configured in the Infomaniak application
+3. Check the plugin's options log for more information about potential errors
+4. Verify that Infomaniak's OAuth2 endpoints are accessible from your server
 
-## Contribution
+## Contributing
 
-Les contributions à ce plugin sont les bienvenues ! N'hésitez pas à soumettre des pull requests ou à signaler des problèmes via le dépôt GitHub du projet.
+Contributions to this plugin are welcome! Feel free to submit pull requests or report issues via the project's GitHub repository.
 
-## Licence
+## License
 
-Ce plugin est distribué sous licence GPL v2 ou ultérieure.
+This plugin is distributed under GPL v2 or later license.
 
-## Crédits
+## Credits
 
-Ce plugin est basé sur la bibliothèque OpenID Connect Generic et a été adapté spécifiquement pour l'intégration avec Infomaniak.
+This plugin is based on the OpenID Connect Generic library and has been specifically adapted for integration with Infomaniak.

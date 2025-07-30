@@ -238,7 +238,7 @@ class OpenID_Connect_Infomaniak {
 	 */
 	public function enforce_privacy_feeds( $content ) {
 		if ( $this->settings->enforce_privacy && ! is_user_logged_in() ) {
-			$content = __( 'Private site', 'infomaniak-openid-connect' );
+			$content = __( 'Private site', 'openid-connect-infomaniak' );
 		}
 		return $content;
 	}
@@ -423,6 +423,8 @@ class OpenID_Connect_Infomaniak {
 		return self::$_instance;
 	}
 }
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 // endpoint_login
 define('INFOMANIAK_OIDC_ENDPOINT_LOGIN_URL', 'https://login.infomaniak.com/authorize' );
