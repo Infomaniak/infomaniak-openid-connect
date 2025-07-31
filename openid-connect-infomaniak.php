@@ -1,6 +1,6 @@
 <?php
 /**
- * OpenID Connect Infomaniak
+ * Infomaniak Connect for OpenID
  *
  * This plugin provides the ability to authenticate users with Identity
  * Providers using the OpenID Connect OAuth2 API with Authorization Code Flow.
@@ -12,19 +12,19 @@
  * @link      https://github.com/infomaniak
  *
  * @wordpress-plugin
- * Plugin Name:       OpenID Connect Infomaniak
- * Plugin URI:        https://github.com/Infomaniak/openid-connect-infomaniak
+ * Plugin Name:       Infomaniak Connect for OpenID
+ * Plugin URI:        https://github.com/Infomaniak/infomaniak-connect-openid
  * Description:       Connect to Infomaniak OpenID provider using Authorization Code Flow.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Requires at least: 5.0
  * Requires PHP:      8.0
  * Author:            infomaniak
  * Author URI:        http://www.infomaniak.com
- * Text Domain:       openid-connect-infomaniak
+ * Text Domain:       infomaniak-connect-openid
  * Domain Path:       /languages
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * GitHub Plugin URI: https://github.com/Infomaniak/openid-connect-infomaniak
+ * GitHub Plugin URI: https://github.com/Infomaniak/infomaniak-connect-openid
  */
 
 /*
@@ -32,39 +32,39 @@ Notes
   Spec Doc - http://openid.net/specs/openid-connect-basic-1_0-32.html
 
   Filters
-  - openid-connect-infomaniak-alter-request       - 3 args: request array, plugin settings, specific request op
-  - openid-connect-infomaniak-settings-fields     - modify the fields provided on the settings page
-  - openid-connect-infomaniak-login-button-text   - modify the login button text
-  - openid-connect-infomaniak-cookie-redirect-url - modify the redirect url stored as a cookie
-  - openid-connect-infomaniak-user-login-test     - (bool) should the user be logged in based on their claim
-  - openid-connect-infomaniak-user-creation-test  - (bool) should the user be created based on their claim
-  - openid-connect-infomaniak-auth-url            - modify the authentication url
-  - openid-connect-infomaniak-alter-user-claim    - modify the user_claim before a new user is created
-  - openid-connect-infomaniak-alter-user-data     - modify user data before a new user is created
+  - infomaniak-connect-openid-alter-request       - 3 args: request array, plugin settings, specific request op
+  - infomaniak-connect-openid-settings-fields     - modify the fields provided on the settings page
+  - infomaniak-connect-openid-login-button-text   - modify the login button text
+  - infomaniak-connect-openid-cookie-redirect-url - modify the redirect url stored as a cookie
+  - infomaniak-connect-openid-user-login-test     - (bool) should the user be logged in based on their claim
+  - infomaniak-connect-openid-user-creation-test  - (bool) should the user be created based on their claim
+  - infomaniak-connect-openid-auth-url            - modify the authentication url
+  - infomaniak-connect-openid-alter-user-claim    - modify the user_claim before a new user is created
+  - infomaniak-connect-openid-alter-user-data     - modify user data before a new user is created
   - openid-connect-modify-token-response-before-validation - modify the token response before validation
   - openid-connect-modify-id-token-claim-before-validation - modify the token claim before validation
 
   Actions
-  - openid-connect-infomaniak-user-create                     - 2 args: fires when a new user is created by this plugin
-  - openid-connect-infomaniak-user-update                     - 1 arg: user ID, fires when user is updated by this plugin
-  - openid-connect-infomaniak-update-user-using-current-claim - 2 args: fires every time an existing user logs in and the claims are updated.
-  - openid-connect-infomaniak-redirect-user-back              - 2 args: $redirect_url, $user. Allows interruption of redirect during login.
-  - openid-connect-infomaniak-user-logged-in                  - 1 arg: $user, fires when user is logged in.
-  - openid-connect-infomaniak-cron-daily                      - daily cron action
-  - openid-connect-infomaniak-state-not-found                 - the given state does not exist in the database, regardless of its expiration.
-  - openid-connect-infomaniak-state-expired                   - the given state exists, but expired before this login attempt.
+  - infomaniak-connect-openid-user-create                     - 2 args: fires when a new user is created by this plugin
+  - infomaniak-connect-openid-user-update                     - 1 arg: user ID, fires when user is updated by this plugin
+  - infomaniak-connect-openid-update-user-using-current-claim - 2 args: fires every time an existing user logs in and the claims are updated.
+  - infomaniak-connect-openid-redirect-user-back              - 2 args: $redirect_url, $user. Allows interruption of redirect during login.
+  - infomaniak-connect-openid-user-logged-in                  - 1 arg: $user, fires when user is logged in.
+  - infomaniak-connect-openid-cron-daily                      - daily cron action
+  - infomaniak-connect-openid-state-not-found                 - the given state does not exist in the database, regardless of its expiration.
+  - infomaniak-connect-openid-state-expired                   - the given state exists, but expired before this login attempt.
 
   Callable actions
 
   User Meta
-  - openid-connect-infomaniak-subject-identity    - the identity of the user provided by the idp
-  - openid-connect-infomaniak-last-id-token-claim - the user's most recent id_token claim, decoded
-  - openid-connect-infomaniak-last-user-claim     - the user's most recent user_claim
-  - openid-connect-infomaniak-last-token-response - the user's most recent token response
+  - infomaniak-connect-openid-subject-identity    - the identity of the user provided by the idp
+  - infomaniak-connect-openid-last-id-token-claim - the user's most recent id_token claim, decoded
+  - infomaniak-connect-openid-last-user-claim     - the user's most recent user_claim
+  - infomaniak-connect-openid-last-token-response - the user's most recent token response
 
   Options
   - openid_connect_generic_settings     - plugin settings
-  - openid-connect-infomaniak-valid-states - locally stored generated states
+  - infomaniak-connect-openid-valid-states - locally stored generated states
 */
 
 
@@ -90,7 +90,7 @@ class OpenID_Connect_Infomaniak {
 	 *
 	 * @var string
 	 */
-	const VERSION = '1.0.1';
+	const VERSION = '1.0.2';
 
 	/**
 	 * Plugin settings.
@@ -167,7 +167,7 @@ class OpenID_Connect_Infomaniak {
 		add_shortcode( 'infomaniak_connect_generic_auth_url', array( $this->client_wrapper, 'get_authentication_url' ) );
 
 		// Add actions to our scheduled cron jobs.
-		add_action( 'openid-connect-infomaniak-cron-daily', array( $this, 'cron_states_garbage_collection' ) );
+		add_action( 'infomaniak-connect-openid-cron-daily', array( $this, 'cron_states_garbage_collection' ) );
 
 		$this->upgrade();
 
@@ -238,7 +238,7 @@ class OpenID_Connect_Infomaniak {
 	 */
 	public function enforce_privacy_feeds( $content ) {
 		if ( $this->settings->enforce_privacy && ! is_user_logged_in() ) {
-			$content = __( 'Private site', 'openid-connect-infomaniak' );
+			$content = __( 'Private site', 'infomaniak-connect-openid' );
 		}
 		return $content;
 	}
@@ -249,7 +249,7 @@ class OpenID_Connect_Infomaniak {
 	 * @return void
 	 */
 	public function upgrade() {
-		$last_version = get_option( 'openid-connect-infomaniak-plugin-version', 0 );
+		$last_version = get_option( 'infomaniak-connect-openid-plugin-version', 0 );
 		$settings = $this->settings;
 
 		if ( version_compare( self::VERSION, $last_version, '>' ) ) {
@@ -267,7 +267,7 @@ class OpenID_Connect_Infomaniak {
 			}
 
 			// Update the stored version number.
-			update_option( 'openid-connect-infomaniak-plugin-version', self::VERSION );
+			update_option( 'infomaniak-connect-openid-plugin-version', self::VERSION );
 		}
 	}
 
@@ -279,7 +279,7 @@ class OpenID_Connect_Infomaniak {
 	 */
 	public function cron_states_garbage_collection() {
 		global $wpdb;
-		$states = $wpdb->get_col( "SELECT `option_name` FROM {$wpdb->options} WHERE `option_name` LIKE '_transient_openid-connect-infomaniak-state--%'" );
+		$states = $wpdb->get_col( "SELECT `option_name` FROM {$wpdb->options} WHERE `option_name` LIKE '_transient_infomaniak-connect-openid-state--%'" );
 
 		if ( ! empty( $states ) ) {
 			foreach ( $states as $state ) {
@@ -295,8 +295,8 @@ class OpenID_Connect_Infomaniak {
 	 * @return void
 	 */
 	public static function setup_cron_jobs() {
-		if ( ! wp_next_scheduled( 'openid-connect-infomaniak-cron-daily' ) ) {
-			wp_schedule_event( time(), 'daily', 'openid-connect-infomaniak-cron-daily' );
+		if ( ! wp_next_scheduled( 'infomaniak-connect-openid-cron-daily' ) ) {
+			wp_schedule_event( time(), 'daily', 'infomaniak-connect-openid-cron-daily' );
 		}
 	}
 
@@ -315,7 +315,7 @@ class OpenID_Connect_Infomaniak {
 	 * @return void
 	 */
 	public static function deactivation() {
-		wp_clear_scheduled_hook( 'openid-connect-infomaniak-cron-daily' );
+		wp_clear_scheduled_hook( 'infomaniak-connect-openid-cron-daily' );
 	}
 
 	/**

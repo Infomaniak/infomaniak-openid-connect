@@ -121,7 +121,7 @@ class OpenID_Connect_Infomaniak_Login_Form {
         ob_start();
         ?>
         <div id="login_error"><?php // translators: %1$s is the error code from the IDP. ?>
-			<strong><?php printf( esc_html__( 'ERROR (%1$s)', 'openid-connect-infomaniak' ), esc_html( $error_code ) ); ?>: </strong>
+			<strong><?php printf( esc_html__( 'ERROR (%1$s)', 'infomaniak-connect-openid' ), esc_html( $error_code ) ); ?>: </strong>
             <?php print esc_html($error_message); ?>
         </div>
         <?php
@@ -140,13 +140,13 @@ class OpenID_Connect_Infomaniak_Login_Form {
 
         $atts = shortcode_atts(
             array(
-                'button_text' => __('Login with Infomaniak', 'openid-connect-infomaniak'),
+                'button_text' => __('Login with Infomaniak', 'infomaniak-connect-openid'),
             ),
             $atts,
             'infomaniak_connect_generic_login_button'
         );
 
-        $text = apply_filters('openid-connect-infomaniak-login-button-text', $atts['button_text']);
+        $text = apply_filters('infomaniak-connect-openid-login-button-text', $atts['button_text']);
         $text = esc_html($text);
 
         $href = $this->client_wrapper->get_authentication_url($atts);

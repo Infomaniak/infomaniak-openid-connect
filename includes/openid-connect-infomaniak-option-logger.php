@@ -25,7 +25,7 @@ class OpenID_Connect_Infomaniak_Option_Logger {
 	 *
 	 * @var string
 	 */
-	const OPTION_NAME = 'openid-connect-infomaniak-logs';
+	const OPTION_NAME = 'infomaniak-connect-openid-logs';
 
 	/**
 	 * The default message type.
@@ -224,31 +224,31 @@ class OpenID_Connect_Infomaniak_Option_Logger {
 		?>
 		<table id="logger-table" class="wp-list-table widefat fixed striped posts">
 			<thead>
-				<th class="col-details"><?php esc_html_e( 'Details', 'openid-connect-infomaniak' ); ?></th>
-				<th class="col-data"><?php esc_html_e( 'Data', 'openid-connect-infomaniak' ); ?></th>
+				<th class="col-details"><?php esc_html_e( 'Details', 'infomaniak-connect-openid' ); ?></th>
+				<th class="col-data"><?php esc_html_e( 'Data', 'infomaniak-connect-openid' ); ?></th>
 			</thead>
 			<tbody>
 			<?php foreach ( $logs as $log ) { ?>
 				<tr>
 					<td class="col-details">
 						<div>
-							<label><?php esc_html_e( 'Date', 'openid-connect-infomaniak' ); ?></label>
+							<label><?php esc_html_e( 'Date', 'infomaniak-connect-openid' ); ?></label>
 							<?php print esc_html( ! empty( $log['time'] ) ? gmdate( 'Y-m-d H:i:s', $log['time'] ) : '' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'Type', 'openid-connect-infomaniak' ); ?></label>
+							<label><?php esc_html_e( 'Type', 'infomaniak-connect-openid' ); ?></label>
 							<?php print esc_html( ! empty( $log['type'] ) ? $log['type'] : '' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'User', 'openid-connect-infomaniak' ); ?>: </label>
+							<label><?php esc_html_e( 'User', 'infomaniak-connect-openid' ); ?>: </label>
 							<?php print esc_html( ( get_userdata( $log['user_ID'] ) ) ? get_userdata( $log['user_ID'] )->user_login : '0' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'URI ', 'openid-connect-infomaniak' ); ?>: </label>
+							<label><?php esc_html_e( 'URI ', 'infomaniak-connect-openid' ); ?>: </label>
 							<?php print esc_url( ! empty( $log['uri'] ) ? $log['uri'] : '' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'Response&nbsp;Time&nbsp;(sec)', 'openid-connect-infomaniak' ); ?></label>
+							<label><?php esc_html_e( 'Response&nbsp;Time&nbsp;(sec)', 'infomaniak-connect-openid' ); ?></label>
 							<?php print esc_html( ! empty( $log['response_time'] ) ? $log['response_time'] : '' ); ?>
 						</div>
 					</td>

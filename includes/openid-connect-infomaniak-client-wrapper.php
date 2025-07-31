@@ -46,7 +46,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 	 *
 	 * @var string
 	 */
-	private $cookie_token_refresh_key = 'openid-connect-infomaniak-refresh';
+	private $cookie_token_refresh_key = 'infomaniak-connect-openid-refresh';
 
 	/**
 	 * The user redirect cookie key.
@@ -55,7 +55,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 	 *
 	 * @var string
 	 */
-	public $cookie_redirect_key = 'openid-connect-infomaniak-redirect';
+	public $cookie_redirect_key = 'infomaniak-connect-openid-redirect';
 
 	/**
 	 * The return error onject.
@@ -105,7 +105,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 		}
 
 		// Alter the requests according to settings.
-		add_filter( 'openid-connect-infomaniak-alter-request', array( $client_wrapper, 'alter_request' ), 10, 2 );
+		add_filter( 'infomaniak-connect-openid-alter-request', array( $client_wrapper, 'alter_request' ), 10, 2 );
 
 		if ( is_admin() ) {
 			/*
@@ -189,7 +189,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 		}
 
 		// This is the new hook to use with the transients version of redirection.
-		return apply_filters( 'openid-connect-infomaniak-client-redirect-to', $redirect_url );
+		return apply_filters( 'infomaniak-connect-openid-client-redirect-to', $redirect_url );
 	}
 
 	/**
@@ -240,7 +240,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 			rawurlencode( $atts['acr_values'] )
 		);
 
-		$url = apply_filters( 'openid-connect-infomaniak-auth-url', $url );
+		$url = apply_filters( 'infomaniak-connect-openid-auth-url', $url );
 		$this->logger->log( $url, 'make_authentication_url' );
 		return $url;
 	}
@@ -279,11 +279,11 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 
 		if ( ! $refresh_token || ( $refresh_expires && $current_time > $refresh_expires ) ) {
 			if ( isset( $_SERVER['REQUEST_URI'] ) ) {
-				do_action( 'openid-connect-infomaniak-session-expired', wp_get_current_user(), esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
+				do_action( 'infomaniak-connect-openid-session-expired', wp_get_current_user(), esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 				wp_logout();
 
 				if ( $this->settings->redirect_on_logout ) {
-					$this->error_redirect( new WP_Error( 'access-token-expired', __( 'Session expired. Please login again.', 'openid-connect-infomaniak' ) ) );
+					$this->error_redirect( new WP_Error( 'access-token-expired', __( 'Session expired. Please login again.', 'infomaniak-connect-openid' ) ) );
 				}
 
 				return;
@@ -304,7 +304,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 			$this->error_redirect( $token_response );
 		}
 
-		update_user_meta( $user_id, 'openid-connect-infomaniak-last-token-response', $token_response );
+		update_user_meta( $user_id, 'infomaniak-connect-openid-last-token-response', $token_response );
 		$this->save_refresh_token( $manager, $token, $token_response );
 	}
 
@@ -373,7 +373,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 			$redirect_url = home_url();
 		}
 
-		$token_response = $user->get( 'openid-connect-infomaniak-last-token-response' );
+		$token_response = $user->get( 'infomaniak-connect-openid-last-token-response' );
 		if ( ! $token_response ) {
 			// Happens if non-openid login was used.
 			return $redirect_url;
@@ -382,7 +382,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 			$redirect_url = site_url( $redirect_url );
 		}
 
-		$claim = $user->get( 'openid-connect-infomaniak-last-id-token-claim' );
+		$claim = $user->get( 'infomaniak-connect-openid-last-id-token-claim' );
 
 		if ( isset( $claim['iss'] ) && 'https://accounts.google.com' == $claim['iss'] ) {
 			/*
@@ -529,7 +529,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 					$this->error_redirect( $user );
 				}
 			} else {
-				$this->error_redirect( new WP_Error( 'identity-not-map-existing-user', __( 'User identity is not linked to an existing WordPress user.', 'openid-connect-infomaniak' ), $user_claim ) );
+				$this->error_redirect( new WP_Error( 'identity-not-map-existing-user', __( 'User identity is not linked to an existing WordPress user.', 'infomaniak-connect-openid' ), $user_claim ) );
 			}
 		}
 
@@ -549,14 +549,14 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 
 		// Allow plugins / themes to take action once a user is logged in.
 		$start_time = microtime( true );
-		do_action( 'openid-connect-infomaniak-user-logged-in', $user );
+		do_action( 'infomaniak-connect-openid-user-logged-in', $user );
 		$end_time = microtime( true );
-		$this->logger->log( 'openid-connect-infomaniak-user-logged-in', 'do_action', $end_time - $start_time );
+		$this->logger->log( 'infomaniak-connect-openid-user-logged-in', 'do_action', $end_time - $start_time );
 
 		// Default redirect to the homepage.
 		$redirect_url = home_url();
 		// Redirect user according to redirect set in state.
-		$state_object = get_transient( 'openid-connect-infomaniak-state--' . $state );
+		$state_object = get_transient( 'infomaniak-connect-openid-state--' . $state );
 		// Get the redirect URL stored with the corresponding authentication request state.
 		if ( ! empty( $state_object ) && ! empty( $state_object[ $state ] ) && ! empty( $state_object[ $state ]['redirect_to'] ) ) {
 			$redirect_url = $state_object[ $state ]['redirect_to'];
@@ -569,7 +569,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 
 		// Only do redirect-user-back action hook when the plugin is configured for it.
 		if ( $this->settings->redirect_user_back ) {
-			do_action( 'openid-connect-infomaniak-redirect-user-back', $redirect_url, $user );
+			do_action( 'infomaniak-connect-openid-redirect-user-back', $redirect_url, $user );
 		}
 
 		wp_redirect( $redirect_url );
@@ -588,7 +588,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 
 		// Ensure the found user is a real WP_User.
 		if ( ! is_a( $user, 'WP_User' ) || ! $user->exists() ) {
-			return new WP_Error( 'invalid-user', __( 'Invalid user.', 'openid-connect-infomaniak' ), $user );
+			return new WP_Error( 'invalid-user', __( 'Invalid user.', 'infomaniak-connect-openid' ), $user );
 		}
 
 		return true;
@@ -646,9 +646,9 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 		}
 
 		// Store the tokens for future reference.
-		update_user_meta( $user->ID, 'openid-connect-infomaniak-last-token-response', $token_response );
-		update_user_meta( $user->ID, 'openid-connect-infomaniak-last-id-token-claim', $id_token_claim );
-		update_user_meta( $user->ID, 'openid-connect-infomaniak-last-user-claim', $user_claim );
+		update_user_meta( $user->ID, 'infomaniak-connect-openid-last-token-response', $token_response );
+		update_user_meta( $user->ID, 'infomaniak-connect-openid-last-id-token-claim', $id_token_claim );
+		update_user_meta( $user->ID, 'infomaniak-connect-openid-last-user-claim', $user_claim );
 
 		return $user_claim;
 	}
@@ -666,14 +666,14 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 	 */
 	public function login_user( $user, $token_response, $id_token_claim, $user_claim, $subject_identity ) {
 		// Store the tokens for future reference.
-		update_user_meta( $user->ID, 'openid-connect-infomaniak-last-token-response', $token_response );
-		update_user_meta( $user->ID, 'openid-connect-infomaniak-last-id-token-claim', $id_token_claim );
-		update_user_meta( $user->ID, 'openid-connect-infomaniak-last-user-claim', $user_claim );
+		update_user_meta( $user->ID, 'infomaniak-connect-openid-last-token-response', $token_response );
+		update_user_meta( $user->ID, 'infomaniak-connect-openid-last-id-token-claim', $id_token_claim );
+		update_user_meta( $user->ID, 'infomaniak-connect-openid-last-user-claim', $user_claim );
 		// Allow plugins / themes to take action using current claims on existing user (e.g. update role).
-		do_action( 'openid-connect-infomaniak-update-user-using-current-claim', $user, $user_claim );
+		do_action( 'infomaniak-connect-openid-update-user-using-current-claim', $user, $user_claim );
 
 		// Determine the amount of days before the cookie expires.
-		$remember_me = apply_filters( 'openid-connect-infomaniak-remember-me', false, $user, $token_response, $id_token_claim, $user_claim, $subject_identity );
+		$remember_me = apply_filters( 'infomaniak-connect-openid-remember-me', false, $user, $token_response, $id_token_claim, $user_claim, $subject_identity );
 		$wp_expiration_days = $remember_me ? 14 : 2;
 
 		// If remember-me is enabled, and using token expiration is enabled,
@@ -681,7 +681,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 		// openid token expiration.
 		if (
 			$remember_me
-			&& apply_filters( 'openid-connect-infomaniak-use-token-refresh-expiration', false )
+			&& apply_filters( 'infomaniak-connect-openid-use-token-refresh-expiration', false )
 			&& ( $token_response['refresh_expires_in'] ?? 0 )
 		) {
 			$this->openid_token_refresh_expires_in = $token_response['refresh_expires_in'];
@@ -755,12 +755,12 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 	 * @return false|WP_User
 	 */
 	public function get_user_by_identity( $subject_identity ) {
-		// Look for user by their openid-connect-infomaniak-subject-identity value.
+		// Look for user by their infomaniak-connect-openid-subject-identity value.
 		$user_query = new WP_User_Query(
 			array(
 				'meta_query' => array(
 					array(
-						'key'   => 'openid-connect-infomaniak-subject-identity',
+						'key'   => 'infomaniak-connect-openid-subject-identity',
 						'value' => $subject_identity,
 					),
 				),
@@ -806,7 +806,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 		}
 		if ( empty( $desired_username ) ) {
 			// Nothing to build a name from.
-			return new WP_Error( 'no-username', __( 'No appropriate username found.', 'openid-connect-infomaniak' ), $user_claim );
+			return new WP_Error( 'no-username', __( 'No appropriate username found.', 'infomaniak-connect-openid' ), $user_claim );
 		}
 
 		// Don't use the full email address for a username.
@@ -816,7 +816,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 		$sanitized_username = sanitize_user( $desired_username, true );
 		if ( empty( $sanitized_username ) ) {
 			// translators: %1$s is the santitized version of the username from the IDP.
-			return new WP_Error( 'username-sanitization-failed', sprintf( __( 'Username %1$s could not be sanitized.', 'openid-connect-infomaniak' ), $desired_username ), $desired_username );
+			return new WP_Error( 'username-sanitization-failed', sprintf( __( 'Username %1$s could not be sanitized.', 'infomaniak-connect-openid' ), $desired_username ), $desired_username );
 		}
 
 		return $sanitized_username;
@@ -838,7 +838,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 
 		if ( empty( $desired_nickname ) ) {
 			// translators: %1$s is the configured User Claim nickname key.
-			return new WP_Error( 'no-nickname', sprintf( __( 'No nickname found in user claim using key: %1$s.', 'openid-connect-infomaniak' ), $this->settings->nickname_key ), $this->settings->nickname_key );
+			return new WP_Error( 'no-nickname', sprintf( __( 'No nickname found in user claim using key: %1$s.', 'infomaniak-connect-openid' ), $this->settings->nickname_key ), $this->settings->nickname_key );
 		}
 
 		return $desired_nickname;
@@ -935,7 +935,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 					if ( $error_on_missing_key ) {
 						return new WP_Error(
 							'incomplete-user-claim',
-							__( 'User claim incomplete.', 'openid-connect-infomaniak' ),
+							__( 'User claim incomplete.', 'infomaniak-connect-openid' ),
 							array(
 								'message'    => 'Unable to find key: ' . $key . ' in user_claim',
 								'hint'       => 'Verify OpenID Scope includes a scope with the attributes you need',
@@ -994,7 +994,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 	 */
 	public function create_new_user( $subject_identity, $user_claim ) {
 		$start_time = microtime( true );
-		$user_claim = apply_filters( 'openid-connect-infomaniak-alter-user-claim', $user_claim );
+		$user_claim = apply_filters( 'infomaniak-connect-openid-alter-user-claim', $user_claim );
 
 		// Default username & email to the subject identity.
 		$username       = $subject_identity;
@@ -1038,7 +1038,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 
 			// Make sure we didn't get an error.
 			if ( is_wp_error( $user_claim_result ) ) {
-				return new WP_Error( 'bad-user-claim-result', __( 'Bad user claim result.', 'openid-connect-infomaniak' ), $user_claim_result );
+				return new WP_Error( 'bad-user-claim-result', __( 'Bad user claim result.', 'infomaniak-connect-openid' ), $user_claim_result );
 			}
 
 			$user_claim = json_decode( $user_claim_result['body'], true );
@@ -1090,7 +1090,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 			}
 			if ( ! empty( $uid ) ) {
 				$user = $this->update_existing_user( $uid, $subject_identity );
-				do_action( 'openid-connect-infomaniak-update-user-using-current-claim', $user, $user_claim );
+				do_action( 'infomaniak-connect-openid-update-user-using-current-claim', $user, $user_claim );
 				$end_time = microtime( true );
 				$this->logger->log( "Existing user updated: {$user->user_login} ($uid)", __METHOD__, $end_time - $start_time );
 				return $user;
@@ -1101,10 +1101,10 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 		 * Allow other plugins / themes to determine authorization of new accounts
 		 * based on the returned user claim.
 		 */
-		$create_user = apply_filters( 'openid-connect-infomaniak-user-creation-test', $this->settings->create_if_does_not_exist, $user_claim );
+		$create_user = apply_filters( 'infomaniak-connect-openid-user-creation-test', $this->settings->create_if_does_not_exist, $user_claim );
 
 		if ( ! $create_user ) {
-			return new WP_Error( 'cannot-authorize', __( 'Can not authorize.', 'openid-connect-infomaniak' ), $create_user );
+			return new WP_Error( 'cannot-authorize', __( 'Can not authorize.', 'infomaniak-connect-openid' ), $create_user );
 		}
 
 		// Copy the username for incrementing.
@@ -1126,28 +1126,28 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 			'first_name' => isset( $user_claim['given_name'] ) ? $user_claim['given_name'] : '',
 			'last_name' => isset( $user_claim['family_name'] ) ? $user_claim['family_name'] : '',
 		);
-		$user_data = apply_filters( 'openid-connect-infomaniak-alter-user-data', $user_data, $user_claim );
+		$user_data = apply_filters( 'infomaniak-connect-openid-alter-user-data', $user_data, $user_claim );
 
 		// Create the new user.
 		$uid = wp_insert_user( $user_data );
 
 		// Make sure we didn't fail in creating the user.
 		if ( is_wp_error( $uid ) ) {
-			return new WP_Error( 'failed-user-creation', __( 'Failed user creation.', 'openid-connect-infomaniak' ), $uid );
+			return new WP_Error( 'failed-user-creation', __( 'Failed user creation.', 'infomaniak-connect-openid' ), $uid );
 		}
 
 		// Retrieve our new user.
 		$user = get_user_by( 'id', $uid );
 
 		// Save some meta data about this new user for the future.
-		add_user_meta( $user->ID, 'openid-connect-infomaniak-subject-identity', (string) $subject_identity, true );
+		add_user_meta( $user->ID, 'infomaniak-connect-openid-subject-identity', (string) $subject_identity, true );
 
 		// Log the results.
 		$end_time = microtime( true );
 		$this->logger->log( "New user created: {$user->user_login} ($uid)", __METHOD__, $end_time - $start_time );
 
 		// Allow plugins / themes to take action on new user creation.
-		do_action( 'openid-connect-infomaniak-user-create', $user, $user_claim );
+		do_action( 'infomaniak-connect-openid-user-create', $user, $user_claim );
 
 		return $user;
 	}
@@ -1162,10 +1162,10 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 	 */
 	public function update_existing_user( $uid, $subject_identity ) {
 		// Add the OpenID Connect meta data.
-		update_user_meta( $uid, 'openid-connect-infomaniak-subject-identity', strval( $subject_identity ) );
+		update_user_meta( $uid, 'infomaniak-connect-openid-subject-identity', strval( $subject_identity ) );
 
 		// Allow plugins / themes to take action on user update.
-		do_action( 'openid-connect-infomaniak-user-update', $uid );
+		do_action( 'infomaniak-connect-openid-user-update', $uid );
 
 		// Return our updated user.
 		return get_user_by( 'id', $uid );

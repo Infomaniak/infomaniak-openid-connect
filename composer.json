@@ -1,5 +1,5 @@
 {
-  "name": "infomaniak/openid-connect-infomaniak",
+  "name": "infomaniak/infomaniak-connect-openid",
   "description": "OpenID Connect client for WordPress to connect with Infomaniak's identity provider",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
