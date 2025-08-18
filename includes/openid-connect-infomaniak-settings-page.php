@@ -447,7 +447,7 @@ class OpenID_Connect_Infomaniak_Settings_Page {
 		<div class="wrap">
             <div class="infomaniak-admin-header">
                 <h2><?php print esc_html( get_admin_page_title() ); ?></h2>
-                <image class="logo" src="<?php print plugin_dir_url( __DIR__ ) . 'images/logo-k.svg'; ?>" alt="Infomaniak Logo" width="50" height="50" />
+                <image class="logo" src="<?php print esc_url(plugin_dir_url( __DIR__ ) . 'images/logo-k.svg'); ?>" alt="Infomaniak Logo" width="50" height="50" />
             </div>
 
 			<form method="post" action="options.php">

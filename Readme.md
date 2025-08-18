@@ -19,6 +19,34 @@ The OpenID Connect Infomaniak Client plugin allows easy integration of OAuth2 au
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Access the plugin settings via 'Settings > OpenID Connect Infomaniak'
 
+## External Service Usage
+
+This plugin integrates with Infomaniak's OIDC (OpenID Connect) service to handle user authentication. When using this plugin, certain user data will be transmitted to and processed by Infomaniak's authentication servers.
+
+### Data Transmission
+
+The following data may be transmitted to Infomaniak's servers during the authentication process:
+- User credentials (handled securely by Infomaniak's login service)
+- Authentication tokens
+- Basic user profile information (email, name, etc.)
+- Session information
+
+### Service Information
+
+- **Service Provider**: Infomaniak Network SA
+- **Service Website**: [https://www.infomaniak.com](https://www.infomaniak.com)
+- **Authentication Endpoint**: [https://login.infomaniak.com/authorize](https://login.infomaniak.com/authorize)
+- **User Information Endpoint**: [https://login.infomaniak.com/oauth2/userinfo](https://login.infomaniak.com/oauth2/userinfo)
+- **Token Endpoint**: [https://login.infomaniak.com/token](https://login.infomaniak.com/token)
+
+### Legal Information
+
+By using this plugin, you agree to Infomaniak's terms of service and privacy policy:
+- [Terms of Service](https://www.infomaniak.com/en/terms)
+- [Privacy Policy](https://www.infomaniak.com/en/privacy)
+
+The plugin developer is not responsible for the privacy practices or content of Infomaniak's services. Please review Infomaniak's policies to understand how they handle your data.
+
 ## Configuration
 
 ### Prerequisites

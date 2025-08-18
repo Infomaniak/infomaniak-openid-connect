@@ -179,6 +179,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 			if ( ! empty( $wp->query_string ) ) {
 				$redirect_url = home_url( '?' . $wp->query_string );
 			}
+            /*
 			if ( ! empty( $wp->request ) ) {
 				$redirect_url = home_url( add_query_arg( null, null ) );
 				// @phpstan-ignore-next-line
@@ -186,6 +187,7 @@ class OpenID_Connect_Infomaniak_Client_Wrapper {
 					$redirect_url = home_url( add_query_arg( $_GET, trailingslashit( $wp->request ) ) );
 				}
 			}
+            */
 		}
 
 		// This is the new hook to use with the transients version of redirection.
